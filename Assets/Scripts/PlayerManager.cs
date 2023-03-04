@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         {
             //set attacking to false
             isAttacking = false;
+            animator.SetBool("attack", false);
         }
     }
 
@@ -40,12 +41,20 @@ public class PlayerManager : MonoBehaviour
 
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnCollisionStay2D(Collision2D collision)
     {
+       
+        if(collision.gameObject.tag == "DeathArea")
+        {
+            Destroy(gameObject);
+        }
+
+
         //do damange if enemy collider check
         if (isAttacking && collision.gameObject.tag == "Enemy")
         {
+            Debug.Log("collision");
             collision.gameObject.GetComponent<EnemyManager>().doDamage(20);
         }
     }
