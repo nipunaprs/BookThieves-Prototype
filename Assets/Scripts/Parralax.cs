@@ -21,7 +21,7 @@ public class Parralax : MonoBehaviour
     {
         float temp = (cam.transform.position.x * (1 - parralaxEffect));
         float dist = (cam.transform.position.x * parralaxEffect);
-        transform.position = new Vector3(startpos+dist,transform.position.y,transform.position.z);
+        transform.position = new Vector3(startpos+dist,-1.62f,transform.position.z);
 
         if (temp > startpos + length) startpos += length;
         else if (temp < startpos - length) startpos -= length;
