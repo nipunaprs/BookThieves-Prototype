@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -41,21 +42,32 @@ public class PlayerManager : MonoBehaviour
 
         
     }
-    
-    private void OnCollisionStay2D(Collision2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-       
-        if(collision.gameObject.tag == "DeathArea")
+        //Fall down death
+        if (collision.gameObject.layer == 8)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
-
+        
         //do damange if enemy collider check
         if (isAttacking && collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("collision");
-            collision.gameObject.GetComponent<EnemyManager>().doDamage(20);
+            //Debug.Log("Doing Damage");
+            int damageAmmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
+            collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmmount);
+        }
+
+        //Reach book
+        if (collision.gameObject.tag == "Book")
+        {
+            
+            collision.gameObject.SetActive(false);
+            SceneManager.LoadScene(2);
+
+            //Switch scenes to end screen
         }
     }
 

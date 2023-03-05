@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public int enemyHealth = 40;
-    public int damageAmmout;
+    public int enemyHealth = 80;
+    public int damageAmmout = 10;
+    public int takeDamageAmmount = 20; //default take 20 damage
+    public bool collisionDamage = true;
     public GameObject player;
     Animator animator;
 
@@ -34,12 +36,12 @@ public class EnemyManager : MonoBehaviour
     {
         
         enemyHealth -= damage;
-        Debug.Log(enemyHealth);
+        Debug.Log("Enemy Health: " + enemyHealth.ToString());
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && collisionDamage == true)
         {
             collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
         }

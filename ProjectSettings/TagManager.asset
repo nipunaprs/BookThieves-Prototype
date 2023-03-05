@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Wall
+  - Fireball
+  - Book
   layers:
   - Default
   - TransparentFX
