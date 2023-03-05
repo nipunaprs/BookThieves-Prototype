@@ -59,5 +59,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void doDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log("Player Health: " + health.ToString());
+    }
+
 
 }

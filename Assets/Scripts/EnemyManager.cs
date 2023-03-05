@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public int enemyHealth = 40;
+    public int damageAmmout;
+    public GameObject player;
     Animator animator;
 
     // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class EnemyManager : MonoBehaviour
 
 
             //gameObject.SetActive(false);
-            Destroy(gameObject,1f);
+            Destroy(gameObject,0.5f);
 
 
         }
@@ -34,4 +36,13 @@ public class EnemyManager : MonoBehaviour
         enemyHealth -= damage;
         Debug.Log(enemyHealth);
     }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
+        }
+    }
+
 }
