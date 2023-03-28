@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -10,6 +11,9 @@ public class EnemyManager : MonoBehaviour
     public bool collisionDamage = true;
     public GameObject player;
     Animator animator;
+
+    //Timeout For Damage
+    bool canAttack = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +43,43 @@ public class EnemyManager : MonoBehaviour
         Debug.Log("Enemy Health: " + enemyHealth.ToString());
     }
     
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && collisionDamage == true)
         {
             collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
         }
+    }*/
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+        //Take consistent damange every 1 second when touching
+        if (collision.gameObject.tag == "Player" && collisionDamage == true && canAttack == true)
+        {
+            //Debug.Log("Trigger CoRoutine : " + Time.time);
+            StartCoroutine(ExampleCoroutine());
+            collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
+            //Debug.Log("Damage Done : " + Time.time);
+        }
+        
+       
+
     }
 
+
+    IEnumerator ExampleCoroutine()
+    {
+        //Print the time of when the function is first called.
+        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
+        canAttack = false;
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(1);
+        canAttack = true;
+        //After we have waited 5 seconds print the time again.
+        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
+
+  
 }

@@ -652,6 +652,7 @@ MonoBehaviour:
   takeDamageAmmount: 20
   collisionDamage: 1
   player: {fileID: 1964812073}
+  canAttack: 0
 --- !u!1 &477382058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,11 +2641,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a0e356b616bfb458471d7ebfd79f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 20
+  enemyHealth: 50
   damageAmmout: 10
   takeDamageAmmount: 20
   collisionDamage: 1
   player: {fileID: 1964812073}
+  canAttack: 1
 --- !u!114 &1706447765
 MonoBehaviour:
   m_ObjectHideFlags: 0
