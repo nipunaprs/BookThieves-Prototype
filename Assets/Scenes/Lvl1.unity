@@ -652,7 +652,6 @@ MonoBehaviour:
   takeDamageAmmount: 20
   collisionDamage: 1
   player: {fileID: 1964812073}
-  canAttack: 0
 --- !u!1 &477382058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,7 +2645,6 @@ MonoBehaviour:
   takeDamageAmmount: 20
   collisionDamage: 1
   player: {fileID: 1964812073}
-  canAttack: 1
 --- !u!114 &1706447765
 MonoBehaviour:
   m_ObjectHideFlags: 0
