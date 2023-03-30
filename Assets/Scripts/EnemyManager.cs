@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
     {
         
         enemyHealth -= damage;
-        Debug.Log("Enemy Health: " + enemyHealth.ToString());
+        
     }
     
     /*
