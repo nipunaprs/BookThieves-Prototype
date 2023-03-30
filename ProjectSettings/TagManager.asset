@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Fireball
   - Book
+  - PlayerFireball
   layers:
   - Default
   - TransparentFX

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerFireball : MonoBehaviour
 {
-    public int damageAmmount = 10;
+    public int damageAmmount = 15;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.gameObject.tag == "Wall")
+        Debug.Log(collision.gameObject.layer == 6);
+        if (collision != null && (collision.gameObject.tag == "Wall" || collision.gameObject.layer == 6))
         {
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
@@ -22,4 +23,6 @@ public class PlayerFireball : MonoBehaviour
         }
 
     }
+
+   
 }

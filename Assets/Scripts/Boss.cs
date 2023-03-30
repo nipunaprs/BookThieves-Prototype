@@ -12,21 +12,23 @@ public class Boss : MonoBehaviour
     private Rigidbody2D rb;
 
     //Player detection variables
-    public float detectDist = 7f;
-    public float attackDist = 3f;
+    public float detectDist = 20f;
+    //public float attackDist = 3f;
 
 
     //Movement variables
     public float speed = 3f;
-    public float stoppingDist = 2;
+    public float stoppingDist = 5f;
     bool facingLeft = true;
 
     //Attack variables
-    bool canAttack = false; //Use for timeout btwn attacks
-    bool attackingNow = false;
-    float attackCooldown = 2f;
+    bool canAttack = true; //Use for timeout btwn attacks
+    bool isAttacking = false;
+    bool isIdle = true;
+    bool isWalking = false;
+    float attackCooldown = 1.0f;
 
-
+    bool doDamageTimeout = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,23 +42,46 @@ public class Boss : MonoBehaviour
     {
         float player_dis = player.transform.position.x - transform.position.x;
         float directionSign = Mathf.Sign(player_dis);
+        //Debug.Log(Mathf.Abs(player_dis));
+
+       
+        //Debug.Log(Mathf.Abs(player_dis) <= stoppingDist && canAttack);
 
         //If player is in range, and can attack -- start attacking
-        if (Mathf.Abs(player_dis) <= attackDist && canAttack)
+        if (Mathf.Abs(player_dis) <= stoppingDist && canAttack)
         {
 
+            //Debug.Log("attacking distance + attacking");
             HandleAttack();
+            HandleAnimations();
 
         }
-        else if(Mathf.Abs(player_dis) <= detectDist) //Player is in detect range, but not attack range
+        else if(Mathf.Abs(player_dis) <= detectDist && Mathf.Abs(player_dis) > stoppingDist) //Player is in detect range, but not attack range
         {
             //Activate move towards player
+            //Debug.Log("moving towards player");
             MoveTowards();
         }
         else if(Mathf.Abs(player_dis) > detectDist) //Idle walk if the player is not in detect distance
         {
+            //Debug.Log("idling");
+            isIdle = true;
+            isWalking = false;
+            isAttacking = false;
+            HandleAnimations();
 
         }
+        else if (Mathf.Abs(player_dis) <= stoppingDist && !canAttack)
+        {
+
+            //Debug.Log("waiting on cooldown");
+            isIdle = true;
+            isAttacking = false;
+            Debug.Log(isAttacking);
+            HandleAnimations();
+
+        }
+
 
 
         //Handle flipping
@@ -76,69 +101,119 @@ public class Boss : MonoBehaviour
 
     void HandleAttack()
     {
-        
+
         //Play attack animations
+        //Debug.Log("Inside Handle Attack");
+        isAttacking = true;
+        isWalking = false;
+        isIdle = false;
+        HandleAnimations();
 
 
-        //Check collisions
-
-
+        //Reset attack
         canAttack = false;
+        //isAttacking = false;
+        //isIdle = true;
         Invoke("ResetAttack", attackCooldown);
     }
 
     void ResetAttack()
     {
+        //Debug.Log("Invoked");
         canAttack = true;
     }
 
+    void HandleAnimations()
+    {
+        if (isIdle && !isAttacking && !isWalking)
+        {
+
+
+            animator.SetBool("walk", false);
+            animator.SetBool("attack", false);
+        }
+        else if(!isIdle && !isAttacking && isWalking){
+            animator.SetBool("walk", true);
+
+
+            animator.SetBool("attack", false);
+
+        }
+        else if (!isIdle && isAttacking && !isWalking)
+        {
+            animator.SetBool("attack", true);
+
+            animator.SetBool("walk", false);
+        }
+        
+    }
+
+
     void MoveTowards()
     {
-        /*
-         * UPDATE THIS CODE TO MATCH
-         * 
+        
         //Set velocity to zero first
-        myrigidbody.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
 
+        //Code to move towards players location
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        isWalking = true;
+        isAttacking = false;
+        isIdle = false;
+        HandleAnimations();
+
+        /*
         //If player is in attack range start attacking
-        if (Vector2.Distance(transform.position, player.position) < stoppingDistance)
+        if (Vector2.Distance(transform.position, player.transform.position) < stoppingDist)
         {
 
             transform.position = this.transform.position;
-            isAttacking = true;
-
+            isWalking = false;
+            isIdle = true;
+            HandleAnimations();
         }
         else
         {
             //Code to move towards players location
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            isAttacking = false;
-            ResetValues();
-        }
-        */
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            isWalking = true;
+            isIdle = false;
+            HandleAnimations();
+        }*/
+        
     }
 
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
+        /*
         if (col.tag == "PlayerFireball")
         {   
-            /*
+            
             //Decrease health by 5
             health = health - 5;
             //If hit with knife, start attacking
             attackNow = true;
-            */
-        }
-
+            
+        }*/
+        Debug.Log("collision detected");
         //If playing attack animation and colliding with player, then do damage
         if (col.tag == "Player" && this.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
-
+            Debug.Log("player detected");
             //Access take damage function in player and do 1 damage
-            player.GetComponent<PlayerManager>().doDamage(5);
+            if(!doDamageTimeout)
+                player.GetComponent<PlayerLvl2>().doDamage(15);
+            doDamageTimeout = true;
+            Invoke("WaitDamage", 1.0f);
 
         }
 
     }
+
+    void WaitDamage()
+    {
+        doDamageTimeout = false;
+    }
+
 }
