@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -60,7 +61,12 @@ public class EnemyManager : MonoBehaviour
         {
             //Debug.Log("Trigger CoRoutine : " + Time.time);
             StartCoroutine(ExampleCoroutine());
-            collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
+
+            if(SceneManager.GetActiveScene().name == "Lvl1")
+                collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmout);
+            else
+                collision.gameObject.GetComponent<PlayerLvl2>().doDamage(damageAmmout);
+
             //Debug.Log("Damage Done : " + Time.time);
         }
         

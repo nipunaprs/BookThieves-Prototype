@@ -146,6 +146,11 @@ public class PlayerLvl2 : MonoBehaviour
                 //update the boss health
                 int boss_health = collision.gameObject.GetComponent<EnemyManager>().enemyHealth;
                 gameManager.GetComponent<GameManagerLvl3>().UpdateBossHealth(boss_health);
+                gameManager.GetComponent<GameManagerLvl3>().UpdateEnemyHealth(boss_health);
+            }
+            else
+            {
+                gameManager.GetComponent<GameManagerLvl3>().UpdateEnemyHealth(collision.gameObject.GetComponent<EnemyManager>().enemyHealth);
             }
 
         }

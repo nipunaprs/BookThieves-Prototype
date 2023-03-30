@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fireball : MonoBehaviour
 {
@@ -16,7 +17,12 @@ public class Fireball : MonoBehaviour
         }
         else if(collision != null && collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmount);
+
+            if (SceneManager.GetActiveScene().name == "Lvl1")
+                collision.gameObject.GetComponent<PlayerManager>().doDamage(damageAmmount);
+            else
+                collision.gameObject.GetComponent<PlayerLvl2>().doDamage(damageAmmount);
+
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }

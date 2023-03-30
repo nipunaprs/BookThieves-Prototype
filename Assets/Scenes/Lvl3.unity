@@ -1360,7 +1360,7 @@ GameObject:
   - component: {fileID: 516717794}
   m_Layer: 6
   m_Name: BaseGround
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22694,6 +22694,7 @@ MonoBehaviour:
   fireball: {fileID: 6581473067440040219, guid: bb163eee2f1fd2c4ab74fbc44e24536c, type: 3}
   fireSpeed: 10
   attackDelayTime: 3
+  gameManager: {fileID: 0}
 --- !u!50 &1554907876
 Rigidbody2D:
   serializedVersion: 4
@@ -24300,6 +24301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1768852011}
   bossHealth: {fileID: 1944625687}
+  enemyHealth: {fileID: 0}
+  localPlayerhealth: 100
 --- !u!4 &1944525436
 Transform:
   m_ObjectHideFlags: 0
