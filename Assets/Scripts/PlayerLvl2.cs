@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerLvl2 : MonoBehaviour
 {
     public Animator animator;
-    public float health = 100;
+    public int health = 100;
 
     bool isAttacking;
     bool canAttack = true;
@@ -19,6 +19,7 @@ public class PlayerLvl2 : MonoBehaviour
     public float fireSpeed = 10f;
     public float attackDelayTime = 2f;
 
+    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +140,14 @@ public class PlayerLvl2 : MonoBehaviour
             StartCoroutine(ExampleCoroutine());
             int damageAmmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
             collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmmount);
+
+            if(collision.gameObject.name == "DemonBoss")
+            {
+                //update the boss health
+                int boss_health = collision.gameObject.GetComponent<EnemyManager>().enemyHealth;
+                gameManager.GetComponent<GameManagerLvl3>().UpdateBossHealth(boss_health);
+            }
+
         }
         
 
@@ -159,7 +168,8 @@ public class PlayerLvl2 : MonoBehaviour
     public void doDamage(int damage)
     {
         health -= damage;
-        Debug.Log("Player Health: " + health.ToString());
+        gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
+        //Debug.Log("Player Health: " + health.ToString());
     }
 
 }

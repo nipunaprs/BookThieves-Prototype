@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
+    public GameObject gameManager;
     public Animator animator;
-    public float health = 100;
+    public int health = 100;
 
     bool isAttacking;
     bool canAttack = true;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +78,9 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine(ExampleCoroutine());
             int damageAmmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
             collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmmount);
+
+
+            gameManager.GetComponent<gameManv1>().UpdateEnemyHealth(collision.gameObject.GetComponent<EnemyManager>().enemyHealth);
         }
         
     }
@@ -94,7 +100,8 @@ public class PlayerManager : MonoBehaviour
     public void doDamage(int damage)
     {
         health -= damage;
-        Debug.Log("Player Health: " + health.ToString());
+        gameManager.GetComponent<gameManv1>().UpdatePlayerHealth(health);
+        //Debug.Log("Player Health: " + health.ToString());
     }
 
 
