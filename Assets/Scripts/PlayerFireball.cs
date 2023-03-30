@@ -24,7 +24,11 @@ public class PlayerFireball : MonoBehaviour
         else if (collision != null && collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmmount);
-            gameManager.GetComponent<GameManagerLvl3>().UpdateEnemyHealth(collision.gameObject.GetComponent<EnemyManager>().enemyHealth);
+            int currentEnemyHealth = collision.gameObject.GetComponent<EnemyManager>().enemyHealth;
+            gameManager.GetComponent<GameManagerLvl3>().UpdateEnemyHealth(currentEnemyHealth);
+            if(collision.gameObject.name == "DemonBoss")
+                gameManager.GetComponent<GameManagerLvl3>().UpdateBossHealth(currentEnemyHealth);
+
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }

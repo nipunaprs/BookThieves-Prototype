@@ -62,7 +62,8 @@ public class PlayerManager : MonoBehaviour
         {
             
             collision.gameObject.SetActive(false);
-            SceneManager.LoadScene(2);
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentScene+1);
 
             //Switch scenes to end screen
         }

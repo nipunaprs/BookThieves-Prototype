@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    async void Update()
+    void Update()
     {
         if (enemyHealth <= 0)
         {
@@ -31,7 +31,7 @@ public class EnemyManager : MonoBehaviour
 
 
             //gameObject.SetActive(false);
-            Destroy(gameObject,0.5f);
+            Destroy(gameObject,1f);
 
 
         }

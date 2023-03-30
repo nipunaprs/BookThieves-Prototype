@@ -113,6 +113,8 @@ public class PlayerLvl2 : MonoBehaviour
         //Fall down death
         if (collision.gameObject.layer == 8)
         {
+            health = 0;
+            gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
             Destroy(this.gameObject);
         }
 
@@ -123,8 +125,9 @@ public class PlayerLvl2 : MonoBehaviour
         if (collision.gameObject.tag == "Book")
         {
 
-            //collision.gameObject.SetActive(false);
-            //SceneManager.LoadScene(2);
+            collision.gameObject.SetActive(false);
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentScene + 1);
 
             //Switch scenes to end screen
         }
