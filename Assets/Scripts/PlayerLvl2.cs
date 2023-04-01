@@ -5,6 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLvl2 : MonoBehaviour
 {
+
+    private float chargeSpeed=2;
+    private float chargeTime=0;
+    private bool isCharging;
+    bool restart;
+    private float chargeTimeFireBall = 0;
+    
+    private bool isChargingFireBall;
+
+
+
     public Animator animator;
     public int health = 100;
 
@@ -17,7 +28,7 @@ public class PlayerLvl2 : MonoBehaviour
     public Transform spawnPoint;
     public GameObject fireball;
     public float fireSpeed = 10f;
-    public float attackDelayTime = 2f;
+    public float attackDelayTime = 1f;
 
     public GameObject gameManager;
 
@@ -25,11 +36,17 @@ public class PlayerLvl2 : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        restart = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+       
+
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             HandleAttack();
@@ -41,15 +58,150 @@ public class PlayerLvl2 : MonoBehaviour
             animator.SetBool("attack", false);
         }
 
-        if(Input.GetKeyDown(KeyCode.X) && canPunch) { 
-            HandlePunch();
-        }
-        else if (Input.GetKeyUp(KeyCode.X))
+
+        if (Input.GetKey(KeyCode.Q) && chargeTimeFireBall < 2)
         {
-            isPunching = false;
+            isChargingFireBall = true;
+            if (isChargingFireBall == true)
+            {
+
+                chargeTimeFireBall += Time.deltaTime * chargeSpeed;
+                Debug.Log(chargeTimeFireBall);
+
+
+            }
+
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.Q) && chargeTimeFireBall >= 2)
+        {
+            ReleaseCharge();// Fireball
+            chargeTimeFireBall = 0;
+
+        }
+
+
+        //
+
+
+
+
+
+        if (Input.GetKey(KeyCode.F) && chargeTime<3)
+        {
+            isCharging = true;
+            if(isCharging == true)
+            {
+
+                chargeTime += Time.deltaTime * chargeSpeed;
+                Debug.Log(chargeTime);
+
+
+            }
+
+
+        }
+       
+        
+        if(Input.GetKeyUp(KeyCode.F) &&chargeTime >=3)
+        {
+            Debug.Log(chargeTime);
+
+            HandlePunch();
+            chargeTime = 0;
+        }
+        else
+        {
             animator.SetBool("punch", false);
         }
+      
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     //   if (Input.GetKeyDown(KeyCode.X) && canPunch) { 
+       //     HandlePunch();
+       // }
+       // else if (Input.GetKeyUp(KeyCode.X))
+        //{
+         //   isPunching = false;
+         //   animator.SetBool("punch", false);
+       // }
+
+
+
+
     }
+
+    void ReleaseCharge()
+    {
+        GameObject fireballP = (GameObject)Instantiate(fireball, spawnPoint.transform.position, fireball.transform.rotation);
+        Rigidbody2D fireballrb = fireballP.GetComponent<Rigidbody2D>();
+        if (!isFacingRight())
+        {
+            fireballrb.velocity = new Vector2(-fireSpeed, 0f);
+        }
+        else
+        {
+            fireballrb.velocity = new Vector2(fireSpeed, 0f);
+        }
+
+        isCharging = false;
+        chargeTime = 0;
+
+    }
+
+
+
+    void HandlePunch()
+    {
+
+        //play animation
+        animator.SetBool("punch", true);
+        isPunching = true;
+
+        //Turn off other animations
+        animator.SetBool("attack", false);
+        isAttacking = false;
+
+        
+
+
+
+        canPunch = false;
+        Invoke("ResetAttack", attackDelayTime);
+
+
+    }
+
+
+    void ResetAttack()
+    {
+        animator.SetBool("punch", false);
+    }
+
+
+    
+
+
+
+    //
+
+
 
 
     void HandleAttack()
@@ -66,46 +218,21 @@ public class PlayerLvl2 : MonoBehaviour
     }
 
 
-    void HandlePunch()
-    {
-
-        //play animation
-        animator.SetBool("punch", true);
-        isPunching = true;
-
-        //Turn off other animations
-        animator.SetBool("attack", false);
-        isAttacking = false;
-
-        
-
-        //Spawn the instance
-        //Start shooting
-        GameObject fireballP = (GameObject)Instantiate(fireball, spawnPoint.transform.position, fireball.transform.rotation);
-        Rigidbody2D fireballrb = fireballP.GetComponent<Rigidbody2D>();
-        if (!isFacingRight())
-        {
-            fireballrb.velocity = new Vector2(-fireSpeed, 0f);
-        }
-        else
-        {
-            fireballrb.velocity = new Vector2(fireSpeed, 0f);
-        }
-
-
-        canPunch = false;
-        Invoke("ResetAttack", attackDelayTime);
-    }
-
-
-    void ResetAttack()
-    {
-        canPunch = true;
-    }
-
     private bool isFacingRight()
     {
         return transform.localScale.x > Mathf.Epsilon;
+    }
+
+    private void OnTriggerEnter2D(Collider2D colision)
+    {
+
+        if (colision.gameObject.layer == 10)//if they get collectibles their health increases by 2
+        {
+            health += 2;
+            Debug.Log(health);
+            gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -117,6 +244,9 @@ public class PlayerLvl2 : MonoBehaviour
             gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
             Destroy(this.gameObject);
         }
+
+
+      
 
 
 
