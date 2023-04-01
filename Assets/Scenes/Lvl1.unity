@@ -2495,6 +2495,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!212 &1817945363 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8756513298537887311, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
+  m_PrefabInstance: {fileID: 8756513296886261215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1879718252
 GameObject:
   m_ObjectHideFlags: 0
@@ -14775,6 +14780,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1964812073}
+    - target: {fileID: 8756513298537887307, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 1817945363}
+    - target: {fileID: 8756513298537887307, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
+      propertyPath: flashTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8756513298537887310, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
       propertyPath: m_RootOrder
       value: 1

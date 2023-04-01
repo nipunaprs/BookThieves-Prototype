@@ -12,6 +12,10 @@ public class EnemyManager : MonoBehaviour
     public bool collisionDamage = true;
     public GameObject player;
     Animator animator;
+    public float flashTime;
+    Color origionalColor;
+    public SpriteRenderer renderer;
+
 
     //Timeout For Damage
     bool canAttack = true;
@@ -19,7 +23,8 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     animator = GetComponent<Animator>();   
+        origionalColor = GetComponent<Renderer>().material.color;
+        animator = GetComponent<Animator>();   
     }
 
     // Update is called once per frame
@@ -41,6 +46,7 @@ public class EnemyManager : MonoBehaviour
     {
         
         enemyHealth -= damage;
+        FlashRed();
         
     }
     
@@ -74,7 +80,15 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-
+    void FlashRed()
+    {
+        GetComponent<Renderer>().material.color = Color.red;
+        Invoke("ResetColor", flashTime);
+    }
+    void ResetColor()
+    {
+        GetComponent<Renderer>().material.color = origionalColor;
+    }
     IEnumerator ExampleCoroutine()
     {
         //Print the time of when the function is first called.
