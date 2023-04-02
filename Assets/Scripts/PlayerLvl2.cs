@@ -14,7 +14,10 @@ public class PlayerLvl2 : MonoBehaviour
     
     private bool isChargingFireBall;
 
-
+   public AudioSource chidoriSoundEffect;
+    public AudioSource collectSound;
+    public AudioSource lvlCompleteSound;
+    public AudioSource deathSound;
 
     public Animator animator;
     public int health = 100;
@@ -178,7 +181,7 @@ public class PlayerLvl2 : MonoBehaviour
         animator.SetBool("attack", false);
         isAttacking = false;
 
-        
+        chidoriSoundEffect.Play();
 
 
 
@@ -228,6 +231,8 @@ public class PlayerLvl2 : MonoBehaviour
 
         if (colision.gameObject.layer == 10)//if they get collectibles their health increases by 2
         {
+            collectSound.Play();
+
             health += 2;
             Debug.Log(health);
             gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
@@ -240,6 +245,7 @@ public class PlayerLvl2 : MonoBehaviour
         //Fall down death
         if (collision.gameObject.layer == 8)
         {
+            deathSound.Play();
             health = 0;
             gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
             Destroy(this.gameObject);
@@ -254,6 +260,7 @@ public class PlayerLvl2 : MonoBehaviour
         //Reach book
         if (collision.gameObject.tag == "Book")
         {
+            lvlCompleteSound.Play();
 
             collision.gameObject.SetActive(false);
             int currentScene = SceneManager.GetActiveScene().buildIndex;

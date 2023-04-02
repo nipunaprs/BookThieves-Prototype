@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     bool crouch;
     bool restart;
 
+    public AudioSource jumpSound;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            jumpSound.Play();
             animator.SetBool("jump", true);
             jump = true;
         }

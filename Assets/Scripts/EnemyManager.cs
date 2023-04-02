@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour
     Color origionalColor;
     public SpriteRenderer renderer;
 
+    public AudioSource enemyDeathSound;
 
     //Timeout For Damage
     bool canAttack = true;
@@ -33,7 +34,7 @@ public class EnemyManager : MonoBehaviour
         if (enemyHealth <= 0)
         {
             animator.SetTrigger("death");
-
+            enemyDeathSound.Play();
 
             //gameObject.SetActive(false);
             Destroy(gameObject,1f);

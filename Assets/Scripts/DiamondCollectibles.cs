@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DiamondCollectibles : MonoBehaviour
 {
+
+
     private void OnTriggerEnter2D(Collider2D colision)
     {
 
