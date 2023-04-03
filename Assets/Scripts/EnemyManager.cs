@@ -17,6 +17,7 @@ public class EnemyManager : MonoBehaviour
     public SpriteRenderer renderer;
 
     public AudioSource enemyDeathSound;
+    public AudioSource enemyDamageSound;
 
     //Timeout For Damage
     bool canAttack = true;
@@ -28,13 +29,17 @@ public class EnemyManager : MonoBehaviour
         animator = GetComponent<Animator>();   
     }
 
+ 
+
+  
+
     // Update is called once per frame
     void Update()
     {
         if (enemyHealth <= 0)
         {
+
             animator.SetTrigger("death");
-            enemyDeathSound.Play();
 
             //gameObject.SetActive(false);
             Destroy(gameObject,1f);
@@ -47,10 +52,17 @@ public class EnemyManager : MonoBehaviour
     {
         
         enemyHealth -= damage;
+        enemyDamageSound.Play();
         FlashRed();
-        
+
+        if (enemyHealth <= 0)
+        {
+            enemyDeathSound.Play();
+
+        }
+
     }
-    
+
     /*
     private void OnCollisionEnter2D(Collision2D collision)
     {

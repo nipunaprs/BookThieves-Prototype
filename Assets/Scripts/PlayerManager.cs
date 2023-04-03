@@ -12,7 +12,12 @@ public class PlayerManager : MonoBehaviour
     bool isAttacking;
     bool canAttack = true;
 
-    
+    public AudioSource collectSound;
+    public AudioSource lvlCompleteSound;
+    public AudioSource deathSound;
+    public AudioSource kickAttackSound;
+    public AudioSource losingHealth;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +46,23 @@ public class PlayerManager : MonoBehaviour
         //play animation
         animator.SetBool("attack", true);
         isAttacking = true;
- 
+        kickAttackSound.Play();
 
-        
+
+
+    }
+    private void OnTriggerEnter2D(Collider2D colision)
+    {
+
+        if (colision.gameObject.layer == 10)//if they get collectibles their health increases by 2
+        {
+            collectSound.Play();
+
+            health += 2;
+            Debug.Log(health);
+            gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -51,6 +70,7 @@ public class PlayerManager : MonoBehaviour
         //Fall down death
         if (collision.gameObject.layer == 8)
         {
+            deathSound.Play();
             Destroy(this.gameObject);
         }
 
@@ -60,9 +80,13 @@ public class PlayerManager : MonoBehaviour
         //Reach book
         if (collision.gameObject.tag == "Book")
         {
-            
+
             collision.gameObject.SetActive(false);
             int currentScene = SceneManager.GetActiveScene().buildIndex;
+
+            
+            lvlCompleteSound.Play();
+
             SceneManager.LoadScene(currentScene+1);
 
             //Switch scenes to end screen
@@ -100,6 +124,7 @@ public class PlayerManager : MonoBehaviour
 
     public void doDamage(int damage)
     {
+        losingHealth.Play();
         health -= damage;
         gameManager.GetComponent<gameManv1>().UpdatePlayerHealth(health);
         //Debug.Log("Player Health: " + health.ToString());
