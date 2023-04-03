@@ -20,6 +20,7 @@ public class PlayerLvl2 : MonoBehaviour
     public AudioSource deathSound;
     public AudioSource FireBallSound;
     public AudioSource kickAttackSound;
+    public AudioSource losingHealth;
 
     public Animator animator;
     public int health = 100;
@@ -72,7 +73,6 @@ public class PlayerLvl2 : MonoBehaviour
             isChargingFireBall = true;
             if (isChargingFireBall == true)
             {
-                FireBallSound.Play();
 
                 chargeTimeFireBall += Time.deltaTime * chargeSpeed;
                 //Debug.Log(chargeTimeFireBall);
@@ -161,6 +161,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     void ReleaseCharge()
     {
+        FireBallSound.Play();
 
         GameObject fireballP = (GameObject)Instantiate(fireball, spawnPoint.transform.position, fireball.transform.rotation);
         Rigidbody2D fireballrb = fireballP.GetComponent<Rigidbody2D>();
@@ -326,6 +327,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     public void doDamage(int damage)
     {
+        losingHealth.Play();
         health -= damage;
         gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
         //Debug.Log("Player Health: " + health.ToString());
