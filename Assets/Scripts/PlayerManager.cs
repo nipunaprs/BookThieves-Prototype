@@ -70,6 +70,10 @@ public class PlayerManager : MonoBehaviour
         //Fall down death
         if (collision.gameObject.layer == 8)
         {
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+
+            SceneManager.LoadScene(currentScene);
+
             deathSound.Play();
             Destroy(this.gameObject);
         }
