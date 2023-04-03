@@ -18,6 +18,8 @@ public class PlayerLvl2 : MonoBehaviour
     public AudioSource collectSound;
     public AudioSource lvlCompleteSound;
     public AudioSource deathSound;
+    public AudioSource FireBallSound;
+    public AudioSource kickAttackSound;
 
     public Animator animator;
     public int health = 100;
@@ -34,6 +36,8 @@ public class PlayerLvl2 : MonoBehaviour
     public float attackDelayTime = 1f;
 
     public GameObject gameManager;
+
+    private int damageAmount=20;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +57,7 @@ public class PlayerLvl2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             HandleAttack();
+
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
@@ -67,9 +72,10 @@ public class PlayerLvl2 : MonoBehaviour
             isChargingFireBall = true;
             if (isChargingFireBall == true)
             {
+                FireBallSound.Play();
 
                 chargeTimeFireBall += Time.deltaTime * chargeSpeed;
-                Debug.Log(chargeTimeFireBall);
+                //Debug.Log(chargeTimeFireBall);
 
 
             }
@@ -81,6 +87,7 @@ public class PlayerLvl2 : MonoBehaviour
         {
             ReleaseCharge();// Fireball
             chargeTimeFireBall = 0;
+            isAttacking = false;
 
         }
 
@@ -113,6 +120,8 @@ public class PlayerLvl2 : MonoBehaviour
 
             HandlePunch();
             chargeTime = 0;
+            isAttacking = false;
+
         }
         else
         {
@@ -152,6 +161,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     void ReleaseCharge()
     {
+
         GameObject fireballP = (GameObject)Instantiate(fireball, spawnPoint.transform.position, fireball.transform.rotation);
         Rigidbody2D fireballrb = fireballP.GetComponent<Rigidbody2D>();
         if (!isFacingRight())
@@ -165,7 +175,9 @@ public class PlayerLvl2 : MonoBehaviour
 
         isCharging = false;
         chargeTime = 0;
+        isAttacking = true;
 
+        damageAmount = 25;
     }
 
 
@@ -179,10 +191,10 @@ public class PlayerLvl2 : MonoBehaviour
 
         //Turn off other animations
         animator.SetBool("attack", false);
-        isAttacking = false;
+        isAttacking = true;
 
         chidoriSoundEffect.Play();
-
+        damageAmount = 40;
 
 
         canPunch = false;
@@ -216,7 +228,8 @@ public class PlayerLvl2 : MonoBehaviour
         //play animation
         animator.SetBool("attack", true);
         isAttacking = true;
-
+        kickAttackSound.Play();
+        damageAmount = 20;
 
     }
 
@@ -273,13 +286,14 @@ public class PlayerLvl2 : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         //do damange if enemy collider check every 1 second
-
-        if (isAttacking && collision.gameObject.tag == "Enemy" && canAttack)
+        //isAttacking && 
+        if (collision.gameObject.tag == "Enemy" && canAttack)
         {
             //Debug.Log("Doing Damage");
             StartCoroutine(ExampleCoroutine());
-            int damageAmmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
-            collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmmount);
+            //int damageAmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
+            Debug.Log(damageAmount);
+            collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmount);
 
             if(collision.gameObject.name == "DemonBoss")
             {
