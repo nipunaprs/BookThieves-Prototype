@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: flashTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8756513298537887307, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
+      propertyPath: enemyDeathSound
+      value: 
+      objectReference: {fileID: 1217337120}
     - target: {fileID: 8756513298537887310, guid: 5dca151527fe52d4498157d56dee317e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -424,6 +428,10 @@ PrefabInstance:
       propertyPath: flashTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2745253529192829587, guid: f3cdd5ef212e8004d912d1bec428d371, type: 3}
+      propertyPath: enemyDeathSound
+      value: 
+      objectReference: {fileID: 1217337120}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3cdd5ef212e8004d912d1bec428d371, type: 3}
 --- !u!212 &75812971 stripped
@@ -677,6 +685,10 @@ PrefabInstance:
       propertyPath: flashTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2745253529192829587, guid: f3cdd5ef212e8004d912d1bec428d371, type: 3}
+      propertyPath: enemyDeathSound
+      value: 
+      objectReference: {fileID: 1217337120}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3cdd5ef212e8004d912d1bec428d371, type: 3}
 --- !u!212 &158961497 stripped
@@ -21042,7 +21054,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706044364}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -22701,7 +22713,7 @@ MonoBehaviour:
   player: {fileID: 1554907871}
   flashTime: 0
   renderer: {fileID: 0}
-  enemyDeathSound: {fileID: 0}
+  enemyDeathSound: {fileID: 1217337120}
 --- !u!1 &1344681253
 GameObject:
   m_ObjectHideFlags: 0
@@ -23262,7 +23274,7 @@ MonoBehaviour:
   characterController: {fileID: 1554907877}
   runSpeed: 45
   animator: {fileID: 1554907878}
-  jumpSound: {fileID: 0}
+  jumpSound: {fileID: 1217337120}
 --- !u!58 &1554907873
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23317,12 +23329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaefbeb1536159049ac762b2e3b50e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chidoriSoundEffect: {fileID: 0}
-  collectSound: {fileID: 0}
-  lvlCompleteSound: {fileID: 0}
-  deathSound: {fileID: 0}
-  FireBallSound: {fileID: 0}
-  kickAttackSound: {fileID: 0}
+  chidoriSoundEffect: {fileID: 1217337120}
+  collectSound: {fileID: 1217337120}
+  lvlCompleteSound: {fileID: 1217337120}
+  deathSound: {fileID: 1217337120}
+  FireBallSound: {fileID: 1217337120}
+  kickAttackSound: {fileID: 1217337120}
   animator: {fileID: 1554907878}
   health: 100
   spawnPoint: {fileID: 314740592}
