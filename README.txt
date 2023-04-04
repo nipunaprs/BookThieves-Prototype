@@ -1,18 +1,18 @@
-npeiris2-Game Prototype
+BookThieves - Game Demo
 
-This is the first prototype for Book Thieves a 2D dungeon crawler game. Please watch the YT video below for a quick demo. The Github link below also shows the code.
+This is the first release for Book Thieves a 2D dungeon crawler game. Please watch the YT video below for a quick demo. 
 
-YT Demo: https://youtu.be/3p9f3pkjSeI
-Github link: https://github.com/nipunaprs/BookThieves-Prototype
+Release 1 YT Demo: 
+Prototype YT Demo: https://youtu.be/3p9f3pkjSeI
 
 ---------------
 Player controls are as follows:
 WASD or Arrow Keys
-Z to attack 
+Z to attack with kick
+Q to launch projectile (longer charge up, the more damage)
 
-There are 3 enemies implemented:
+There are 4 enemies implemented:
 Angel(movement/collision attack), Ghoul(movement/collision attack), and Wizard (projectile attack)
+Final Boss 
 
-The sprites were acquired from the Unity Asset Store.
-
-If you need any more information, feel free to contact at npeiris2@uwo.ca
+There are 3 levels with completely different terrain and parralax backgrounds. The sprites were acquired from the Unity Asset Store & other free resources.
