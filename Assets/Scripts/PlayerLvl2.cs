@@ -26,6 +26,9 @@ public class PlayerLvl2 : MonoBehaviour
     public int health = 100;
 
     bool isAttacking;
+
+    bool isAttackingFIXED=false;
+
     bool canAttack = true;
 
     //Second attack code
@@ -165,6 +168,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     void ReleaseCharge()
     {
+        isAttackingFIXED = true;
         FireBallSound.Play();
 
         GameObject fireballP = (GameObject)Instantiate(fireball, spawnPoint.transform.position, fireball.transform.rotation);
@@ -189,6 +193,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     void HandlePunch()
     {
+        isAttackingFIXED = true;
 
         //play animation
         animator.SetBool("punch", true);
@@ -226,6 +231,8 @@ public class PlayerLvl2 : MonoBehaviour
 
     void HandleAttack()
     {
+        isAttackingFIXED = true;
+
         //Turn off other animations
         animator.SetBool("punch", false);
         isPunching = false;
@@ -235,7 +242,6 @@ public class PlayerLvl2 : MonoBehaviour
         isAttacking = true;
         kickAttackSound.Play();
         damageAmount = 20;
-
     }
 
 
@@ -292,11 +298,15 @@ public class PlayerLvl2 : MonoBehaviour
     {
         //do damange if enemy collider check every 1 second
         //isAttacking &&
-        if ( collision.gameObject.tag == "Enemy" && canAttack)
+        if (isAttackingFIXED && collision.gameObject.tag == "Enemy" && canAttack)
         {
+            isAttackingFIXED = false;
+
             //Debug.Log("Doing Damage");
             StartCoroutine(ExampleCoroutine());
             //int damageAmount = collision.gameObject.GetComponent<EnemyManager>().takeDamageAmmount;
+            Debug.Log("Damanging Enenmy");
+
             Debug.Log(damageAmount);
             collision.gameObject.GetComponent<EnemyManager>().doDamage(damageAmount);
 
