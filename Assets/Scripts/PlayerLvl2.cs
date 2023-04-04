@@ -43,6 +43,7 @@ public class PlayerLvl2 : MonoBehaviour
 
     private int damageAmount=20;
 
+    public HealthBarScript HealthBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -258,6 +259,7 @@ public class PlayerLvl2 : MonoBehaviour
             collectSound.Play();
 
             health += 2;
+            HealthBar.SetHealth(health, 100);
             Debug.Log(health);
             gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
         }
@@ -343,6 +345,7 @@ public class PlayerLvl2 : MonoBehaviour
     {
         losingHealth.Play();
         health -= damage;
+        HealthBar.SetHealth(health, 100);
         gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
         //Debug.Log("Player Health: " + health.ToString());
     }
