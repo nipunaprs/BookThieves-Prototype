@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     public AudioSource deathSound;
     public AudioSource kickAttackSound;
     public AudioSource losingHealth;
-
+    public HealthBarScript HealthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
             collectSound.Play();
 
             health += 2;
-            Debug.Log(health);
+            HealthBar.SetHealth(health, 100);
             gameManager.GetComponent<GameManagerLvl3>().UpdatePlayerHealth(health);
         }
 
@@ -134,6 +134,7 @@ public class PlayerManager : MonoBehaviour
         losingHealth.Play();
         health -= damage;
         gameManager.GetComponent<gameManv1>().UpdatePlayerHealth(health);
+        HealthBar.SetHealth(health, 100);
         //Debug.Log("Player Health: " + health.ToString());
     }
 

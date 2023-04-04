@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     public bool collisionDamage = true;
     public GameObject player;
     Animator animator;
-    public float flashTime;
+    private float flashTime =0.5F;
     Color origionalColor;
     public SpriteRenderer renderer;
 
