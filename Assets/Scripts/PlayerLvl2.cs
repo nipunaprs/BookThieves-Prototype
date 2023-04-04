@@ -87,6 +87,10 @@ public class PlayerLvl2 : MonoBehaviour
         {
             ReleaseCharge();// Fireball
             chargeTimeFireBall = 0;
+
+        }
+        else
+        {
             isAttacking = false;
 
         }
@@ -120,11 +124,11 @@ public class PlayerLvl2 : MonoBehaviour
 
             HandlePunch();
             chargeTime = 0;
-            isAttacking = false;
 
         }
         else
         {
+            isAttacking = false;
             animator.SetBool("punch", false);
         }
       
@@ -287,8 +291,8 @@ public class PlayerLvl2 : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         //do damange if enemy collider check every 1 second
-        //isAttacking && 
-        if (collision.gameObject.tag == "Enemy" && canAttack)
+        //isAttacking &&
+        if ( collision.gameObject.tag == "Enemy" && canAttack)
         {
             //Debug.Log("Doing Damage");
             StartCoroutine(ExampleCoroutine());
