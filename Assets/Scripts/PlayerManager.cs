@@ -72,14 +72,17 @@ public class PlayerManager : MonoBehaviour
         {
             int currentScene = SceneManager.GetActiveScene().buildIndex;
 
-            SceneManager.LoadScene(currentScene);
+            //SceneManager.LoadScene(currentScene);
 
             deathSound.Play();
             Destroy(this.gameObject);
+            health = 0;
+            gameManager.GetComponent<gameManv1>().UpdatePlayerHealth(health);
+
         }
 
-        
-       
+
+
 
         //Reach book
         if (collision.gameObject.tag == "Book")

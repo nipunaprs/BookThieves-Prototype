@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    public void RestartLevel()
+    {
+        int currentScene = GameManagerLvl3.levelName;
+
+        SceneManager.LoadScene(currentScene);
+    }
 
     public void StartGame()
     {

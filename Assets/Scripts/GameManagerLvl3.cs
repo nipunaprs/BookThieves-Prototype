@@ -9,6 +9,7 @@ public class GameManagerLvl3 : MonoBehaviour
     public Text playerHealth;
     public Text bossHealth;
     public Text enemyHealth;
+    public static int levelName;
 
     public int localPlayerhealth = 100;
 
@@ -24,6 +25,10 @@ public class GameManagerLvl3 : MonoBehaviour
         //Restart if playerhealth goes to zero
         if (localPlayerhealth <= 0)
         {
+            levelName = SceneManager.GetActiveScene().buildIndex;
+            Debug.Log("LEVELNAME:::");
+
+            Debug.Log(levelName);
             RestartLvl();
         }
     }
@@ -40,7 +45,9 @@ public class GameManagerLvl3 : MonoBehaviour
 
     public void RestartLvl()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Restart");
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 

@@ -23,6 +23,7 @@ public class gameManv1 : MonoBehaviour
         //Restart if playerhealth goes to zero
         if(currentPlayerHealth <= 0)
         {
+            GameManagerLvl3.levelName= SceneManager.GetActiveScene().buildIndex;
             RestartLvl();
         }
     }
@@ -39,7 +40,9 @@ public class gameManv1 : MonoBehaviour
 
     public void RestartLvl()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Restart");
+
     }
 
 
