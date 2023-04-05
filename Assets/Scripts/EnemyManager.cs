@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour
         if (enemyHealth <= 0)
         {
 
-            animator.SetTrigger("death");
 
             //gameObject.SetActive(false);
             Destroy(gameObject,1f);
@@ -58,6 +57,7 @@ public class EnemyManager : MonoBehaviour
         if (enemyHealth <= 0)
         {
             enemyDeathSound.Play();
+            animator.SetTrigger("death");
 
         }
 
