@@ -27132,7 +27132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a0e356b616bfb458471d7ebfd79f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 100
+  enemyHealth: 150
   damageAmmout: 15
   takeDamageAmmount: 20
   collisionDamage: 0
